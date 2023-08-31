@@ -11,7 +11,7 @@ const getChosenDecision = async (req, res) => {
       return res.status(404).json({ error: "Decision not found" });
     }
 
-    res.json({ finalDecision: findDecision.finalDecision });
+    res.json({ finalDecision: findDecision.finalDecision, colorScheme: findDecision.colorScheme });
   } catch (error) {
     console.error("Error fetching decision:", error);
     res.status(500).json({ error: "Internal server error" });

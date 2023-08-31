@@ -1,0 +1,50 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.decisionMadeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20dvh;
+    opacity: 0; /* Start with 0 opacity */
+    animation: fadeIn 2s ease forwards 3s; /* Apply the fade-in animation */
+}
+
+.object-svg {
+  position: absolute;
+  z-index: 1;
+  max-height: 60%;
+}
+
+.centered-text {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  font-size: 3rem;
+  color: #000000;
+  padding: 30px;
+  border-radius: 4px;
+  max-height: 60%;
+
+  // background-color: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.announcementContainer {
+  animation: fadeIn 3s ease forwards;
+}

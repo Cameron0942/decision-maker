@@ -1,5 +1,8 @@
-// import React from "react";
+//? REACT
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+//? SASS
+import './styles/main.scss';
 
 //? COMPONENTS
 import Home from "./pages/home/Home";

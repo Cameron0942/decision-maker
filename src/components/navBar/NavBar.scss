@@ -1,0 +1,25 @@
+.navBarContainer {
+  height: 5dvh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 25px;
+  padding-top: 0.5%;
+
+  .linksContainer {
+    min-width: auto;
+    width: 25dvw;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .link {
+    color: #ffffff;
+    min-width: auto;
+    white-space: nowrap;
+
+    span {
+        font-size: 1.2em;
+    }
+  }
+}
