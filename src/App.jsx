@@ -13,17 +13,25 @@ import NotFound from "./pages/not-found/NotFound";
 
 
 function App() {
-
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} exact />
-        <Route path='/decision' element={<DecisionNew />} exact />
-        <Route path='/decision/:guid' element={<Decision />} exact />
-        <Route path='/decision/:guid/choice' element={<DecisionMade />} exact />
+        <Route path="/" element={<Home />} />
+        <Route path="/decision" element={<DecisionNew />} />
+        <Route path="/decision/:guid/*" element={<DecisionRoutes />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
+  );
+}
+
+function DecisionRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Decision />} />
+      <Route path="/choice" element={<DecisionMade />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

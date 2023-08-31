@@ -12,6 +12,7 @@ import QRCode from "qrcode.react";
 import NavBar from "../../components/navBar/NavBar";
 import TileLoader from "../../components/loaders/tileLoader/TileLoader";
 import BarLoader from "../../components/loaders/barLoader/BarLoader";
+import NotFound from "../../components/404/NotFoundComponent";
 
 //? BACKGROUND SVGs
 // import wavesDefault from "../../assets/bg-svg/layered-waves-haikei-orange.svg";
@@ -32,7 +33,8 @@ const Decision = () => {
   const [isSubmissionLoading, setIsSubmissionLoading] = useState(false);
   const [makeDecisionLoading, setMakeDecisionLoading] = useState(false);
   const [idea, setIdea] = useState("");
-  
+  const [is404, setIs404] = useState(false);
+
   const currentURL = window.location.href;
 
   //* focus input when decision changes
@@ -49,6 +51,8 @@ const Decision = () => {
     const guid = window.location.pathname.split("/")[2];
 
     try {
+      setIs404(false);
+
       const response = await axios.get(
         `${import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL}/decision/${guid}`
       );
@@ -80,8 +84,9 @@ const Decision = () => {
       }
       return response.data;
     } catch (error) {
+      setIs404(true);
       console.error("Error fetching decisions:", error);
-      navigate("/404/");
+      // navigate("/404/");
     }
   };
 
@@ -163,61 +168,128 @@ const Decision = () => {
   return (
     <>
       <NavBar />
-      <div className="decisionContainer">
-        <h1>{decisions.title}</h1>
-        {isLoading ? (
-          <TileLoader />
-        ) : (
-          <>
-            <ol className="listOfIdeas">
-              {Object.keys(decisions.decisions).map((key, index) => (
-                <li key={index}>{decisions.decisions[key]}</li>
-              ))}
-            </ol>
-            <form className="decisionInputContainer" onSubmit={handleSubmit}>
-              <input
-                className="input-styled"
-                type="text"
-                placeholder="Tap here to enter a new idea"
-                value={idea}
-                ref={inputRef}
-                onChange={(e) => setIdea(e.target.value)}
-                required
-                disabled={isSubmissionLoading}
-              />
-              {isSubmissionLoading ? (
-                <TileLoader />
+      {is404 ? (
+        <NotFound />
+      ) : (
+        <div className="decisionContainer">
+          <h1>{decisions.title}</h1>
+          {isLoading ? (
+            <TileLoader />
+          ) : (
+            <>
+              <ol className="listOfIdeas">
+                {Object.keys(decisions.decisions).map((key, index) => (
+                  <li key={index}>{decisions.decisions[key]}</li>
+                ))}
+              </ol>
+              <form className="decisionInputContainer" onSubmit={handleSubmit}>
+                <input
+                  className="input-styled"
+                  type="text"
+                  placeholder="Tap here to enter a new idea"
+                  value={idea}
+                  ref={inputRef}
+                  onChange={(e) => setIdea(e.target.value)}
+                  required
+                  disabled={isSubmissionLoading}
+                />
+                {isSubmissionLoading ? (
+                  <TileLoader />
+                ) : (
+                  <button type="submit" className="addIdeaButton">
+                    Add to list
+                  </button>
+                )}
+              </form>
+              {makeDecisionLoading ? (
+                <BarLoader />
               ) : (
-                <button type="submit" className="addIdeaButton">
-                  Add to list
+                <button
+                  type="button"
+                  className="makeChoiceButton"
+                  onClick={handleMakeDecision}
+                  disabled={isSubmissionLoading || makeDecisionLoading}
+                >
+                  Make choice
                 </button>
               )}
-            </form>
-            {makeDecisionLoading ? (
-              <BarLoader />
-            ) : (
-              <button
-                type="button"
-                className="makeChoiceButton"
-                onClick={handleMakeDecision}
-                disabled={isSubmissionLoading || makeDecisionLoading}
-              >
-                Make choice
-              </button>
-            )}
-            <div className="qrCodeContainer">
-              <span onClick={handleCopyClick}>
-                Share this link with your friends and let them add to the list
-              <textarea name="" id="" cols="30" rows="3">{window.location.href}</textarea>
-              </span>
-              <p>Scan this to share</p>
-              <QRCode value={currentURL} />
-            </div>
-          </>
-        )}
-      </div>
+              <div className="qrCodeContainer">
+                <span onClick={handleCopyClick}>
+                  Share this link with your friends and let them add to the list
+                  <textarea name="" id="" cols="30" rows="3">
+                    {window.location.href}
+                  </textarea>
+                </span>
+                <p>Scan this to share</p>
+                <QRCode value={currentURL} />
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 };
 
 export default Decision;
+
+//! HOLDING
+// return (
+//   <>
+//     <NavBar />
+//     {is404 ? (<h1 style={{color: "#ffffff"}}>404 page</h1>) : (<h1 style={{color: "#ffffff"}}>200 page</h1>)}
+//     <div className="decisionContainer">
+//       <h1>{decisions.title}</h1>
+//       {isLoading ? (
+//         <TileLoader />
+//       ) : (
+//         <>
+//           <ol className="listOfIdeas">
+//             {Object.keys(decisions.decisions).map((key, index) => (
+//               <li key={index}>{decisions.decisions[key]}</li>
+//             ))}
+//           </ol>
+//           <form className="decisionInputContainer" onSubmit={handleSubmit}>
+//             <input
+//               className="input-styled"
+//               type="text"
+//               placeholder="Tap here to enter a new idea"
+//               value={idea}
+//               ref={inputRef}
+//               onChange={(e) => setIdea(e.target.value)}
+//               required
+//               disabled={isSubmissionLoading}
+//             />
+//             {isSubmissionLoading ? (
+//               <TileLoader />
+//             ) : (
+//               <button type="submit" className="addIdeaButton">
+//                 Add to list
+//               </button>
+//             )}
+//           </form>
+//           {makeDecisionLoading ? (
+//             <BarLoader />
+//           ) : (
+//             <button
+//               type="button"
+//               className="makeChoiceButton"
+//               onClick={handleMakeDecision}
+//               disabled={isSubmissionLoading || makeDecisionLoading}
+//             >
+//               Make choice
+//             </button>
+//           )}
+//           <div className="qrCodeContainer">
+//             <span onClick={handleCopyClick}>
+//               Share this link with your friends and let them add to the list
+//             <textarea name="" id="" cols="30" rows="3">{window.location.href}</textarea>
+//             </span>
+//             <p>Scan this to share</p>
+//             <QRCode value={currentURL} />
+//           </div>
+//         </>
+//       )}
+//     </div>
+//   </>
+// );
