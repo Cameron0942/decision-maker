@@ -1,0 +1,25 @@
+//* Global / light-mode bg-color
+$global-bg-color: #e9e3b4;
+$bg-waves-svg: url("../assets/bg-svg/layered-waves-haikei.svg");
+$bg-waves-orange-svg: url("../assets/bg-svg/layered-waves-haikei-orange.svg");
+$bg-layered-peaks: url("../assets/bg-svg/layered-peaks-haikei.svg");
+$test: url("../assets//bg-svg/test.svg");
+
+//* Global / dark-mode bg-color
+$global-bg-color-dark: #381D2A;
+
+//* Global font
+$global-font-family: 'Inter', sans-serif;
+
+//* Text Inputs
+$primary-color: #3E6990;
+$input-border-color: #ccc;
+$input-border-focus-color: #ffffff;
+$input-background-color: #D7C970;
+$input-padding: 15px;
+$input-border-radius: 4px;
+
+//* Buttons
+$get-started-button-color: #3E6990;
+$get-started-button-color-hover: #2B4864;
+$make-group-button-color: #9EB57D;

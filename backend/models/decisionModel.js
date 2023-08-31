@@ -21,6 +21,10 @@ const decisionSchema = new Schema({
   finalDecision: {
     type: String,
     default: null,
+  },
+  colorScheme: {
+    type: Number,
+    default: 0
   }
 });
 
