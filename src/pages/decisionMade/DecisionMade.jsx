@@ -32,14 +32,13 @@ const blobOptions = [
   purpleBlob,
   greenBlob,
   redBlob,
-  blueBlob
+  blueBlob,
 ];
 const randomBlobIndex = Math.floor(Math.random() * blobOptions.length);
 const selectedBlob = blobOptions[randomBlobIndex];
 
 //? LOADERS
 import TileLoader from "../../components/loaders/tileLoader/TileLoader";
-
 
 const DecisionMade = () => {
   const navigate = useNavigate();
@@ -76,6 +75,7 @@ const DecisionMade = () => {
       } catch (error) {
         console.error("Error fetching decisions:", error);
         setIsLoading(false);
+        navigate(`/decision/${guid}/404`);
         return { decisions: {} };
       }
     };
@@ -126,7 +126,11 @@ const DecisionMade = () => {
           <div className="announcementContainer">
             <h1 style={{ color: "#ffffff" }}>And the winner is...</h1>
             <div className="svg-container">
-              <object className="object-svg" data={selectedBlob} type="image/svg+xml" />
+              <object
+                className="object-svg"
+                data={selectedBlob}
+                type="image/svg+xml"
+              />
               <span className="centered-text">{decisions.finalDecision}</span>
             </div>
           </div>

@@ -23,12 +23,9 @@ const DecisionNew = () => {
   const [firstDecision, setFirstDecision] = useState("");
   const [loading, setLoading] = useState(false);
 
-    //* focus input on page load
-    useEffect(() => {
-      if (inputRef.current) inputRef.current.focus();
-    }, []);
-
   useEffect(() => {
+    //* focus input on page load
+    if (inputRef.current) inputRef.current.focus();
     document.body.style.backgroundImage = `url(${bgWavesOrange})`;
   }, []);
 
