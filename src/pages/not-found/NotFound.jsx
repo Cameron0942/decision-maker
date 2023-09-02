@@ -1,9 +1,3 @@
-//? REACT
-import { useEffect } from "react";
-
-//? BACKGROUND SVGs
-import bgWaves from "../../assets/bg-svg/layered-waves-haikei-orange.svg";
-
 //? CUSTOM COMPONENTS
 import NavBar from "../../components/navBar/NavBar";
 
@@ -11,9 +5,6 @@ import NavBar from "../../components/navBar/NavBar";
 import "./NotFound.scss";
 
 const NotFound = () => {
-  useEffect(() => {
-    document.body.style.backgroundImage = `url(${bgWaves})`;
-  }, []);
 
   return (
     <>
