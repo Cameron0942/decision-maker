@@ -9,9 +9,6 @@ import axios from "axios";
 import NavBar from "../../components/navBar/NavBar";
 import BarLoader from "../../components/loaders/barLoader/BarLoader";
 
-//? BACKGROUND SVGs
-import bgWavesOrange from "../../assets/bg-svg/layered-waves-haikei-orange.svg"
-
 //? SASS
 import "./DecisionNew.scss";
 
@@ -26,7 +23,6 @@ const DecisionNew = () => {
   useEffect(() => {
     //* focus input on page load
     if (inputRef.current) inputRef.current.focus();
-    document.body.style.backgroundImage = `url(${bgWavesOrange})`;
   }, []);
 
   useEffect(() => {

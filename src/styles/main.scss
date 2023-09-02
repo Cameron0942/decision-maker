@@ -1,6 +1,5 @@
-
-@import './variables';
-@import './mixins';
+@import "./variables";
+@import "./mixins";
 
 //! NOTES ON COMPONENT STYLING SASS
 //* You can also import component-specific SASS files in your main.scss file.
@@ -11,15 +10,15 @@
 //! END NOTES ON COMPONENT STYLING SASS
 
 html {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    background-color: $global-bg-color;
-    @include global-font;
-    overflow-x: hidden;
-    // background-image: $bg-waves-orange-svg;
+  padding: 0;
+  margin: 0;
+  background-color: $global-bg-color;
+  @include global-font;
+  overflow-x: hidden;
 }
 
-  

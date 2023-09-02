@@ -11,13 +11,6 @@ import NavBar from "../../components/navBar/NavBar";
 //? SASS
 import "./decisionMade.scss";
 
-//? BACKGROUND SVGs
-import wavesBlueGreen from "../../assets/bg-svg/options/layered-waves-haikei-blue-green.svg";
-import wavesPinkPurple from "../../assets/bg-svg/options/layered-waves-haikei-pink-purple.svg";
-import wavesPurpleYellow from "../../assets/bg-svg/options/layered-waves-haikei-purple-yellow.svg";
-import wavesBluePink from "../../assets/bg-svg/options/layered-waves-haikei-blue-pink.svg";
-import wavesRedPink from "../../assets/bg-svg/options/layered-waves-haikei-red-pink.svg";
-
 //? ASSETS
 import blob from "../../assets/shapes/blob.svg";
 import orangeBlob from "../../assets/shapes/red-orange-blob.svg";
@@ -46,11 +39,6 @@ const DecisionMade = () => {
   const [decisions, setDecisions] = useState({});
 
   useEffect(() => {
-    document.body.style.backgroundImage = "none";
-    document.body.style.backgroundColor = "#001220";
-  }, []);
-
-  useEffect(() => {
     const fetchDecisionsFromServer = async () => {
       // the guid should be after /decision/ so guid is in the [2] spot
       const guid = window.location.pathname.split("/")[2];
@@ -71,6 +59,11 @@ const DecisionMade = () => {
 
         setIsLoading(false);
 
+        const event = new CustomEvent("colorSchemeEvent", {
+          detail: response.data.colorScheme,
+        });
+        window.dispatchEvent(event);
+
         return response.data;
       } catch (error) {
         console.error("Error fetching decisions:", error);
@@ -85,27 +78,6 @@ const DecisionMade = () => {
         setIsLoading(true);
         const decisionsData = await fetchDecisionsFromServer();
         setDecisions(decisionsData);
-
-        switch (decisionsData.colorScheme) {
-          case 0:
-            document.body.style.backgroundImage = `url(${wavesBlueGreen})`;
-            break;
-          case 1:
-            document.body.style.backgroundImage = `url(${wavesPinkPurple})`;
-            break;
-          case 2:
-            document.body.style.backgroundImage = `url(${wavesPurpleYellow})`;
-            break;
-          case 3:
-            document.body.style.backgroundImage = `url(${wavesBluePink})`;
-            break;
-          case 4:
-            document.body.style.backgroundImage = `url(${wavesRedPink})`;
-            break;
-          default:
-            document.body.style.backgroundColor = "#001220";
-            break;
-        }
       } finally {
         setIsLoading(false);
       }

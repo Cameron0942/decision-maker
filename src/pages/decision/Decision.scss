@@ -82,37 +82,44 @@
     background-color: #2b4864;
     box-shadow: 6px 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
+
+  
 }
 
 .qrCodeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 75px;
+  color: #ffffff;
+
+  span {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    margin-top: 20px; 
-    border-radius: 75px;
+    justify-content: center;
+    margin-bottom: 5px;
+    text-decoration: none;
     color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 2px 2px #000000;
 
-    span {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-bottom: 5px;
-        text-decoration: none;
-        color: #ffffff;
-
-        textarea {
-          resize: none;
-        }
-
-        &:hover {
-          text-decoration: underline;
-          cursor: pointer;
-        }
+    textarea {
+      resize: none;
     }
 
-    p {
-      margin-bottom: 5px;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
+  }
+
+  p {
+    margin-bottom: 5px;
+    margin-top: 0px;
+    text-shadow: 2px 2px #000000;
+  }
 }
-  
