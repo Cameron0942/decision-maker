@@ -23,3 +23,14 @@ $input-border-radius: 4px;
 $get-started-button-color: #3E6990;
 $get-started-button-color-hover: #2B4864;
 $make-group-button-color: #9EB57D;
+
+//* Media Query Breakpoints
+$small-screen-max-width: 767px;
+$medium-screen-min-width: 768px;
+$medium-screen-max-width: 1023px;
+$large-screen-min-width: 1024px;
+
+//* Font Sizes for Different Screen Sizes
+$h1-font-size-small: 2rem;     // Small screens (e.g., smartphones)
+$h1-font-size-medium: 3rem;    // Medium screens (e.g., tablets)
+$h1-font-size-large: 2.8rem;   // Large screens (e.g., desktops)

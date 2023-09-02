@@ -7,7 +7,7 @@
 
 .input-styled::placeholder {
   text-align: center;
-  color: #5F561B;
+  color: #5f561b;
 }
 
 .newDecisionInputContainer * {
@@ -20,8 +20,10 @@
   align-items: center;
   flex-direction: column;
 
-  h1, p {
+  h1,
+  p {
     color: #ffffff;
+    text-align: center;
   }
 }
 
@@ -35,6 +37,10 @@
 
   h1 {
     color: #ffffff;
+  }
+
+  @media (max-width: $small-screen-max-width) {
+    min-width: 80%;
   }
 }
 
@@ -55,7 +61,7 @@
   transition: background-color 0.15s, box-shadow 0.15s;
 
   &:hover {
-    background-color: #8AA664;
+    background-color: #8aa664;
     box-shadow: 4px 2px 3px 2px rgba(0, 0, 0, 0.25);
     color: #000000;
   }

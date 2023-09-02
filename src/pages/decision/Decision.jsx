@@ -14,14 +14,6 @@ import TileLoader from "../../components/loaders/tileLoader/TileLoader";
 import BarLoader from "../../components/loaders/barLoader/BarLoader";
 import NotFound from "../../components/404/NotFoundComponent";
 
-//? BACKGROUND SVGs
-// import wavesDefault from "../../assets/bg-svg/layered-waves-haikei-orange.svg";
-import wavesBlueGreen from "../../assets/bg-svg/options/layered-waves-haikei-blue-green.svg";
-import wavesPinkPurple from "../../assets/bg-svg/options/layered-waves-haikei-pink-purple.svg";
-import wavesPurpleYellow from "../../assets/bg-svg/options/layered-waves-haikei-purple-yellow.svg";
-import wavesBluePink from "../../assets/bg-svg/options/layered-waves-haikei-blue-pink.svg";
-import wavesRedPink from "../../assets/bg-svg/options/layered-waves-haikei-red-pink.svg";
-
 //? SASS
 import "./Decision.scss";
 
@@ -42,11 +34,6 @@ const Decision = () => {
     if (inputRef.current) inputRef.current.focus();
   }, [decisions]);
 
-  useEffect(() => {
-    document.body.style.backgroundImage = `url()`;
-    document.body.style.backgroundColor = "#001220";
-  }, []);
-
   const fetchDecisionsFromServer = async () => {
     const guid = window.location.pathname.split("/")[2];
 
@@ -60,27 +47,6 @@ const Decision = () => {
       if (response.data && response.data.finalDecision !== null) {
         navigate(`/decision/${guid}/choice`);
         return;
-      }
-
-      switch (response.data.colorScheme) {
-        case 0:
-          document.body.style.backgroundImage = `url(${wavesBlueGreen})`;
-          break;
-        case 1:
-          document.body.style.backgroundImage = `url(${wavesPinkPurple})`;
-          break;
-        case 2:
-          document.body.style.backgroundImage = `url(${wavesPurpleYellow})`;
-          break;
-        case 3:
-          document.body.style.backgroundImage = `url(${wavesBluePink})`;
-          break;
-        case 4:
-          document.body.style.backgroundImage = `url(${wavesRedPink})`;
-          break;
-        default:
-          document.body.style.backgroundColor = "#001220";
-          break;
       }
       return response.data;
     } catch (error) {
@@ -96,6 +62,14 @@ const Decision = () => {
         setIsLoading(true);
         const decisionsData = await fetchDecisionsFromServer();
         setDecisions(decisionsData);
+
+        //* custom event to pass data between 2 separate components
+        const event = new CustomEvent("colorSchemeEvent", {
+          detail: decisionsData.colorScheme,
+        });
+        window.dispatchEvent(event);
+      } catch (e) {
+        console.error("Problem fetching decisions", e);
       } finally {
         setIsLoading(false);
       }
@@ -216,9 +190,13 @@ const Decision = () => {
               <div className="qrCodeContainer">
                 <span onClick={handleCopyClick}>
                   Share this link with your friends and let them add to the list
-                  <textarea name="" id="" cols="30" rows="3">
-                    {window.location.href}
-                  </textarea>
+                  <textarea
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="3"
+                    defaultValue={window.location.href}
+                  />
                 </span>
                 <p>Scan this to share</p>
                 <QRCode value={currentURL} />
@@ -232,64 +210,3 @@ const Decision = () => {
 };
 
 export default Decision;
-
-//! HOLDING
-// return (
-//   <>
-//     <NavBar />
-//     {is404 ? (<h1 style={{color: "#ffffff"}}>404 page</h1>) : (<h1 style={{color: "#ffffff"}}>200 page</h1>)}
-//     <div className="decisionContainer">
-//       <h1>{decisions.title}</h1>
-//       {isLoading ? (
-//         <TileLoader />
-//       ) : (
-//         <>
-//           <ol className="listOfIdeas">
-//             {Object.keys(decisions.decisions).map((key, index) => (
-//               <li key={index}>{decisions.decisions[key]}</li>
-//             ))}
-//           </ol>
-//           <form className="decisionInputContainer" onSubmit={handleSubmit}>
-//             <input
-//               className="input-styled"
-//               type="text"
-//               placeholder="Tap here to enter a new idea"
-//               value={idea}
-//               ref={inputRef}
-//               onChange={(e) => setIdea(e.target.value)}
-//               required
-//               disabled={isSubmissionLoading}
-//             />
-//             {isSubmissionLoading ? (
-//               <TileLoader />
-//             ) : (
-//               <button type="submit" className="addIdeaButton">
-//                 Add to list
-//               </button>
-//             )}
-//           </form>
-//           {makeDecisionLoading ? (
-//             <BarLoader />
-//           ) : (
-//             <button
-//               type="button"
-//               className="makeChoiceButton"
-//               onClick={handleMakeDecision}
-//               disabled={isSubmissionLoading || makeDecisionLoading}
-//             >
-//               Make choice
-//             </button>
-//           )}
-//           <div className="qrCodeContainer">
-//             <span onClick={handleCopyClick}>
-//               Share this link with your friends and let them add to the list
-//             <textarea name="" id="" cols="30" rows="3">{window.location.href}</textarea>
-//             </span>
-//             <p>Scan this to share</p>
-//             <QRCode value={currentURL} />
-//           </div>
-//         </>
-//       )}
-//     </div>
-//   </>
-// );
