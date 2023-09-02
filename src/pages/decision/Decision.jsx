@@ -63,6 +63,7 @@ const Decision = () => {
         const decisionsData = await fetchDecisionsFromServer();
         setDecisions(decisionsData);
 
+        // NOTE FOR GITHUB
         //* custom event to pass data between 2 separate components
         const event = new CustomEvent("colorSchemeEvent", {
           detail: decisionsData.colorScheme,
