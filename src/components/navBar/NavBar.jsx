@@ -27,13 +27,6 @@ const NavBar = () => {
         >
           <span>How It Works</span>
         </Link>
-        <Link
-          className="link"
-          to="/contact"
-          onClick={() => handleClick("default")}
-        >
-          <span>Contact</span>
-        </Link>
       </div>
     </div>
   );

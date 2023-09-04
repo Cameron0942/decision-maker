@@ -56,10 +56,10 @@ const DecisionNew = () => {
     <>
       <NavBar />
       <div className="newDecisionContainer">
-        <h1>Creating a decision</h1>
+        <h1>Creating a group</h1>
+        <h3 style={{color: 'white'}}>Think of a title for the group along with the first idea to get things started</h3>
         <p>
-          Entering a title lets your group understand what kind of ideas need to
-          be added
+          Adding a title helps your group understand what type of ideas to include in the list
         </p>
         <form className="newDecisionInputContainer" onSubmit={handleSubmit}>
           <input

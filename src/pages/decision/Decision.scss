@@ -11,11 +11,19 @@
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  padding-left: 5px;
+  padding-right: 5px;
 
   h1 {
     color: #ffffff;
     font-size: 3.5em;
     text-decoration: underline;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media  (max-width: 720px) {
+      font-size: 1.8em;
+    }
   }
 }
 
@@ -51,6 +59,11 @@
     box-shadow: 4px 2px 3px 2px rgba(0, 0, 0, 0.25);
     color: #000000;
   }
+
+  @media  (max-width: 720px) {
+    font-size: 0.8rem;
+    padding: 7px 7px;
+  }
 }
 
 .listOfIdeas {
@@ -77,13 +90,12 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   transition: box-shadow 0.15s;
+  text-shadow: 1px 1px #000000;
 
   &:hover {
     background-color: #2b4864;
     box-shadow: 6px 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
-
-  
 }
 
 .qrCodeContainer {
@@ -109,6 +121,7 @@
 
     textarea {
       resize: none;
+      margin-top: 5px;
     }
 
     &:hover {

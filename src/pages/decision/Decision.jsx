@@ -190,7 +190,7 @@ const Decision = () => {
               )}
               <div className="qrCodeContainer">
                 <span onClick={handleCopyClick}>
-                  Share this link with your friends and let them add to the list
+                  Click or tap this text to copy the link, and share it with your group
                   <textarea
                     name=""
                     id=""
@@ -199,6 +199,7 @@ const Decision = () => {
                     defaultValue={window.location.href}
                   />
                 </span>
+                <p>Or</p>
                 <p>Scan this to share</p>
                 <QRCode value={currentURL} />
               </div>
