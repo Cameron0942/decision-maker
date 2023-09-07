@@ -14,16 +14,12 @@ import "./DecisionNew.scss";
 
 const DecisionNew = () => {
   const navigate = useNavigate();
-  const inputRef = useRef(null);
+  // const inputRef = useRef(null);
   const [guid, setGUID] = useState("");
   const [title, setTitle] = useState("");
   const [firstDecision, setFirstDecision] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    //* focus input on page load
-    if (inputRef.current) inputRef.current.focus();
-  }, []);
 
   useEffect(() => {
     navigate(`/decision/${guid}`);
@@ -67,7 +63,7 @@ const DecisionNew = () => {
             type="text"
             name="title"
             value={title}
-            ref={inputRef}
+            // ref={inputRef}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter a Title (i.e. What to eat?)"
             required
