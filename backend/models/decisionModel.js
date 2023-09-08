@@ -31,5 +31,5 @@ const decisionSchema = new Schema({
   }
 });
 
-const decision = model("decisions", decisionSchema);
+const decision = model("decision", decisionSchema, "decision-maker-collection");
 export default decision;
