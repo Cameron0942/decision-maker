@@ -9,7 +9,7 @@ import axios from "axios";
 import NavBar from "../../components/navBar/NavBar";
 
 //? SASS
-import "./decisionMade.scss";
+import "./DecisionMade.scss";
 
 //? ASSETS
 import blob from "../../assets/shapes/blob.svg";
