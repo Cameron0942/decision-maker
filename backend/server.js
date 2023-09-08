@@ -4,7 +4,7 @@ dotenv.config();
 import express, { json } from "express";
 import cors from "cors";
 const app = express();
-// import path from 'path';
+import path from 'path';
 
 //? MONGODB
 import mongoose from "mongoose";
