@@ -24,7 +24,8 @@ import getRouter from "./routers/getRouter.js";
 app.use(json());
 app.use(cors());
 
-// app.use(express.static(path.join(__dirname, 'build')));
+// eslint-disable-next-line no-undef
+app.use(express.static(path.join(__dirname, 'build')));
 
 // eslint-disable-next-line no-undef
 const mongodbURI = process.env.MONGODB_URI;
