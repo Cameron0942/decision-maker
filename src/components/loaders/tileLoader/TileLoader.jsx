@@ -1,5 +1,5 @@
 //? SASS
-import "./tileLoader.scss";
+import "./TileLoader.scss";
 
 const TileLoader = () => {
   return (
