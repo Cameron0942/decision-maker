@@ -17,15 +17,15 @@ const makeDecision = async (req, res) => {
       return;
     }
 
-    // Choose a random index from the decisions array
+    //* Choose a random index from the decisions array
     const randomIndex = Math.floor(
       Math.random() * findDecision.decisions.length
     );
 
-    // Get the decision at the random index
+    //* Get the decision at the random index
     const randomDecision = findDecision.decisions[randomIndex];
 
-    // Update the document with the finalDecision field
+    //* Update the document with the finalDecision field
     findDecision.finalDecision = randomDecision;
     await findDecision.save();
 
