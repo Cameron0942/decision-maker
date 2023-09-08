@@ -10,7 +10,7 @@ import NavBar from "../../components/navBar/NavBar";
 import BarLoader from "../../components/loaders/barLoader/BarLoader";
 
 //? SASS
-import "./DecisionNew.scss";
+import "/DecisionNew.scss";
 
 const DecisionNew = () => {
   const navigate = useNavigate();
