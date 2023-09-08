@@ -1,5 +1,5 @@
 //? SASS
-import "./BarLoader.scss";
+import "./Barloader.scss";
 
 const BarLoader = () => {
   return (
