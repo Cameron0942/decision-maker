@@ -1,0 +1,8 @@
+@import "../../styles/variables";
+
+.mobileMenu {
+    @media (min-width: $large-screen-min-width) {
+        display: none;
+      }
+    
+  }

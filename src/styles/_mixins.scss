@@ -14,7 +14,7 @@
 
   &:focus {
     border-color: $input-border-focus-color;
-    outline: none;
+    outline: 2px solid $input-border-focus-color;
   }
 }
 

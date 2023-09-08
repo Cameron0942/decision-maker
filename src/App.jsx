@@ -6,6 +6,7 @@ import './styles/main.scss';
 
 //? COMPONENTS
 import Home from "./pages/home/Home";
+import HowItWorks from "./pages/how-it-works/HowItWorks";
 import DecisionNew from "./pages/decision-new/DecisionNew";
 import Decision from "./pages/decision/Decision";
 import DecisionMade from "./pages/decisionMade/DecisionMade";
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/decision" element={<DecisionNew />} />
         <Route path="/decision/:guid/*" element={<DecisionRoutes />} />
         <Route path="*" element={<NotFound />} />

@@ -11,11 +11,19 @@
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  padding-left: 5px;
+  padding-right: 5px;
 
   h1 {
     color: #ffffff;
     font-size: 3.5em;
     text-decoration: underline;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media  (max-width: 720px) {
+      font-size: 1.8em;
+    }
   }
 }
 
@@ -42,14 +50,19 @@
   height: 48px;
   cursor: pointer;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-top-right-radius: 4px; /* Only top left corner */
-  border-bottom-right-radius: 4px; /* Only bottom left corner */
+  border-top-right-radius: 4px; 
+  border-bottom-right-radius: 4px;
   transition: background-color 0.15s, box-shadow 0.15s;
 
   &:hover {
     background-color: #8aa664;
     box-shadow: 4px 2px 3px 2px rgba(0, 0, 0, 0.25);
     color: #000000;
+  }
+
+  @media  (max-width: 720px) {
+    font-size: 0.8rem;
+    padding: 7px 7px;
   }
 }
 
@@ -66,7 +79,7 @@
 
 .makeChoiceButton {
   background-color: $get-started-button-color;
-  margin-top: 0.5%;
+  margin-top: 8%;
   color: #ffffff;
   font-size: 18px;
   border: none;
@@ -77,13 +90,16 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   transition: box-shadow 0.15s;
+  text-shadow: 1px 1px #000000;
 
   &:hover {
     background-color: #2b4864;
     box-shadow: 6px 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
 
-  
+  @media  (min-width: $large-screen-min-width) {
+    margin-top: 0.5%;
+  }
 }
 
 .qrCodeContainer {
@@ -92,7 +108,7 @@
   align-items: center;
   flex-direction: column;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10dvh;
   border-radius: 75px;
   color: #ffffff;
 
@@ -109,6 +125,7 @@
 
     textarea {
       resize: none;
+      margin-top: 5px;
     }
 
     &:hover {

@@ -19,8 +19,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 20px;
 
   h1,
+  h3,
   p {
     color: #ffffff;
     text-align: center;
@@ -32,15 +34,15 @@
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  min-width: 35%;
+  min-width: 35dvw;
   height: 20dvh;
 
-  h1 {
-    color: #ffffff;
+  input {
+    margin-bottom: 0.5rem;
   }
 
   @media (max-width: $small-screen-max-width) {
-    min-width: 80%;
+    min-width: 80dvw;
   }
 }
 

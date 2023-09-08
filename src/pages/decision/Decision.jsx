@@ -1,6 +1,6 @@
 //? REACT
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 //? AXIOS
 import axios from "axios";
@@ -18,7 +18,7 @@ import NotFound from "../../components/404/NotFoundComponent";
 import "./Decision.scss";
 
 const Decision = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const inputRef = useRef(null);
   const [decisions, setDecisions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -45,14 +45,14 @@ const Decision = () => {
       );
 
       if (response.data && response.data.finalDecision !== null) {
-        navigate(`/decision/${guid}/choice`);
+        // navigate(`/decision/${guid}/choice`);
+        window.location.href = `/decision/${guid}/choice`;
         return;
       }
       return response.data;
     } catch (error) {
       setIs404(true);
       console.error("Error fetching decisions:", error);
-      // navigate("/404/");
     }
   };
 
@@ -114,7 +114,8 @@ const Decision = () => {
           import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL
         }/decision/${guid}/choice`
       );
-      navigate(`/decision/${guid}/choice`);
+      // navigate(`/decision/${guid}/choice`);
+      window.location.href = `/decision/${guid}/choice`;
     } catch (e) {
       console.error("Error sending makeDecision request", e);
       setMakeDecisionLoading(false);
@@ -161,7 +162,7 @@ const Decision = () => {
                 <input
                   className="input-styled"
                   type="text"
-                  placeholder="Tap here to enter a new idea"
+                  placeholder="Tap here to enter an idea"
                   value={idea}
                   ref={inputRef}
                   onChange={(e) => setIdea(e.target.value)}
@@ -190,7 +191,7 @@ const Decision = () => {
               )}
               <div className="qrCodeContainer">
                 <span onClick={handleCopyClick}>
-                  Share this link with your friends and let them add to the list
+                  Click or tap this text to copy the link, and share it with your group
                   <textarea
                     name=""
                     id=""
@@ -199,6 +200,7 @@ const Decision = () => {
                     defaultValue={window.location.href}
                   />
                 </span>
+                <p>Or</p>
                 <p>Scan this to share</p>
                 <QRCode value={currentURL} />
               </div>

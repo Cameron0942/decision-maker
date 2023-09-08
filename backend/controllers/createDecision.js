@@ -1,5 +1,3 @@
-// import path from 'path';
-
 //? CRYPTO
 import crypto from 'crypto';
 
@@ -29,7 +27,8 @@ const createDecision = async (req, res) => {
             title: req.body.title,
             decisions: req.body.decision,
             guid: guid,
-            colorScheme: randomColorScheme
+            colorScheme: randomColorScheme,
+            createdAt: new Date()
         });
     }
     catch(e){

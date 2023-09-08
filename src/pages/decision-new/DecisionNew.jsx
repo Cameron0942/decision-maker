@@ -14,16 +14,12 @@ import "./DecisionNew.scss";
 
 const DecisionNew = () => {
   const navigate = useNavigate();
-  const inputRef = useRef(null);
+  // const inputRef = useRef(null);
   const [guid, setGUID] = useState("");
   const [title, setTitle] = useState("");
   const [firstDecision, setFirstDecision] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    //* focus input on page load
-    if (inputRef.current) inputRef.current.focus();
-  }, []);
 
   useEffect(() => {
     navigate(`/decision/${guid}`);
@@ -56,10 +52,10 @@ const DecisionNew = () => {
     <>
       <NavBar />
       <div className="newDecisionContainer">
-        <h1>Creating a decision</h1>
+        <h1>Creating a group</h1>
+        <h3 style={{color: 'white'}}>Think of a title for the group along with the first idea to get things started</h3>
         <p>
-          Entering a title lets your group understand what kind of ideas need to
-          be added
+          Adding a title helps your group understand what type of ideas to include in the list
         </p>
         <form className="newDecisionInputContainer" onSubmit={handleSubmit}>
           <input
@@ -67,7 +63,7 @@ const DecisionNew = () => {
             type="text"
             name="title"
             value={title}
-            ref={inputRef}
+            // ref={inputRef}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter a Title (i.e. What to eat?)"
             required

@@ -53,15 +53,18 @@ const Background = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="background">
-      <div className="root-svg-container">
-        <object
-          data={activeBG}
-          className="bg-object-svg"
-          type="image/svg+xml"
-        />
+    <>
+      <div ref={containerRef} className="background">
+        <div className="root-svg-container">
+          <object
+            data={activeBG}
+            className="bg-object-svg"
+            type="image/svg+xml"
+          />
+        </div>
       </div>
-    </div>
+    <footer className="footer" style={{color: 'white'}}>Cameron Burns 2023 — <a href='https://github.com/Cameron0942/decision-maker' target='_blank'  rel='noreferrer' style={{color: '#E6C892', textDecoration: 'none'}}>Created by Cameron0942</a></footer>
+    </>
   );
 };
 

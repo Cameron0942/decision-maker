@@ -103,7 +103,7 @@ const DecisionMade = () => {
                 data={selectedBlob}
                 type="image/svg+xml"
               />
-              <span className="centered-text">{decisions.finalDecision}</span>
+              <span className="centered-text"><span>{decisions.finalDecision}</span></span>
             </div>
           </div>
         )}

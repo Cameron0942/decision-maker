@@ -18,12 +18,10 @@ const Home = () => {
     <>
       <NavBar />
       <div className="homeContainer">
-        <h1>
-          Give me a list of decisions and I will choose one for you
-        </h1>
-        <p >
-          Need help making a tough decision? [APP NAME] is here to help. Give
-          [APP NAME] your choices and let it decide.
+        <h1>Give ChanceWave a list of ideas and it will choose one for you</h1>
+        <p>
+          Need help making a tough decision? ChanceWave is here to help. Give
+          ChanceWave your choices and let it decide!
         </p>
         <button
           className="getStartedButton"
