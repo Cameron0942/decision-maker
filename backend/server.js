@@ -68,3 +68,9 @@ connectDB().then(() => {
       console.log(`MongoDB is running on port ${MONGODB_PORT}`);
   })
 })
+
+app.get("/", (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, "../", "dist", "index.html")
+  );
+});
