@@ -10,7 +10,8 @@ const app = express();
 
 //? MONGODB
 import mongoose from "mongoose";
-const { connect, connection } = mongoose;
+// const { connect, connection } = mongoose;
+const { connect } = mongoose;
 mongoose.set("strictQuery", false); //stops console warnings
 
 //? PORTS
@@ -45,9 +46,9 @@ const connectDB = async () => {
 };
 
 connectDB();
-connection.once("open", () => {
-  console.log(`MongoDB is running on port: ${MONGODB_PORT}`);
-});
+// connection.once("open", () => {
+//   console.log(`MongoDB is running on port: ${MONGODB_PORT}`);
+// });
 
 //* ROUTES
 app.use("/decision", postRouter);
@@ -55,4 +56,8 @@ app.use("/decision", getRouter);
 
 app.listen(SERVER_PORT, () =>
   console.log(`Server is running on port ${SERVER_PORT}`)
+);
+
+app.listen(MONGODB_PORT, () =>
+  console.log(`MongoDB is running on port ${MONGODB_PORT}`)
 );
