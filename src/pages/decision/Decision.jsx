@@ -1,6 +1,6 @@
 //? REACT
 import { useEffect, useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //? AXIOS
 import axios from "axios";
@@ -18,7 +18,7 @@ import NotFound from "../../components/404/NotFoundComponent";
 import "./Decision.scss";
 
 const Decision = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const [decisions, setDecisions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -44,9 +44,10 @@ const Decision = () => {
         `${import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL}/decision/${guid}`
       );
 
+
       if (response.data && response.data.finalDecision !== null) {
-        // navigate(`/decision/${guid}/choice`);
-        window.location.href = `/decision/${guid}/choice`;
+        navigate(`/decision/${guid}/choice`);
+        // window.location.href = `/decision/${guid}/choice`;
         return;
       }
       return response.data;
@@ -114,8 +115,8 @@ const Decision = () => {
           import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL
         }/decision/${guid}/choice`
       );
-      // navigate(`/decision/${guid}/choice`);
-      window.location.href = `/decision/${guid}/choice`;
+      navigate(`/decision/${guid}/choice`);
+      // window.location.href = `/decision/${guid}/choice`;
     } catch (e) {
       console.error("Error sending makeDecision request", e);
       setMakeDecisionLoading(false);
@@ -191,7 +192,7 @@ const Decision = () => {
               )}
               <div className="qrCodeContainer">
                 <span onClick={handleCopyClick}>
-                  Click or tap this text to copy the link, and share it with your group
+                  Click or tap this text to copy the link, and share it with your group testing!!!!
                   <textarea
                     name=""
                     id=""

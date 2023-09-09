@@ -51,9 +51,12 @@ const DecisionMade = () => {
           }/decision/${guid}/choice/chosen`
         );
 
-        if (!response.data || !response.data.finalDecision) {
+        console.log("DecisionMade response", response);
+
+        if (!response.data || !response.data.finalDecision || response.data.finalDecision === true) {
           // Navigate back
           navigate(`/decision/${guid}`);
+          // window.location.href = `/decision/${guid}`;
           return;
         }
 

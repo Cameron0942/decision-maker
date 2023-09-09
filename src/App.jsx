@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/decision" element={<DecisionNew />} />
-        <Route path="/decision/:guid/*" element={<DecisionRoutes />} />
+        <Route path="/decision/:guid" element={<DecisionRoutes />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

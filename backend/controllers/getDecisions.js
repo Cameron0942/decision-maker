@@ -10,7 +10,7 @@ const getDecisions = async (req, res) => {
     if (!findDecision) {
       return res.status(404).json({ error: "Decision not found" });
     }
-
+    
     res.json(findDecision);
   } catch (error) {
     console.error("Error fetching decision:", error);

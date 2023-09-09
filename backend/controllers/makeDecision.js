@@ -1,7 +1,7 @@
 //? MODEL
 import decision from "../models/decisionModel.js";
 
-const makeDecision = async (req, res) => {
+const makeDecision = async (req, res, next) => {
   const guid = req.params.guid;
 
   try {
@@ -13,7 +13,8 @@ const makeDecision = async (req, res) => {
 
     //* if decision has already been made
     if (findDecision.finalDecision !== null) {
-      res.json({decision: "Decision has already been made."});
+      // res.json({decision: "Decision has already been made."});
+      next();
       return;
     }
 

@@ -30,8 +30,10 @@ app.use(cors());
 // Get the directory path using import.meta.url
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// eslint-disable-next-line no-undef
-app.use(express.static(path.join(__dirname, "dist")));
+// // eslint-disable-next-line no-undef
+// app.use(express.static(path.join(__dirname, "dist")));
+
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 // eslint-disable-next-line no-undef
 const mongodbURI = process.env.MONGODB_URI;
@@ -73,5 +75,9 @@ connectDB().then(() => {
 //   res.sendFile(
 //     path.resolve(__dirname, "../", "dist", "index.html")
 //   );
-//   res.send("Request receieved!")
+//   // res.send("Request receieved!")
 // });
+
+app.use('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+});
