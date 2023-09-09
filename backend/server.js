@@ -58,6 +58,13 @@ app.listen(SERVER_PORT, () =>
   console.log(`Server is running on port ${SERVER_PORT}`)
 );
 
-app.listen(MONGODB_PORT, () =>
-  console.log(`MongoDB is running on port ${MONGODB_PORT}`)
-);
+// app.listen(MONGODB_PORT, () =>
+//   console.log(`MongoDB is running on port ${MONGODB_PORT}`)
+// );
+
+//Connect to the database before listening
+connectDB().then(() => {
+  app.listen(MONGODB_PORT, () => {
+      console.log(`MongoDB is running on port ${MONGODB_PORT}`);
+  })
+})
