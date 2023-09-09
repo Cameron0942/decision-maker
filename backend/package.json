@@ -12,12 +12,13 @@
   },
   "author": "Cameron Burns",
   "license": "MIT",
-      "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^16.3.1",
-        "express": "^4.16.2"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.20"
-    }
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.16.2",
+    "mongoose": "^7.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
