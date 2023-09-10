@@ -44,40 +44,50 @@ const DecisionMade = () => {
       const guid = window.location.pathname.split("/")[2];
       setIsLoading(true);
 
-      try {
-        const response = await axios.get(
-          `${
-            import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL
-          }/decision/${guid}/choice/chosen`
-        );
+      async function makeGetRequest(url) {
+        try {
+          const response = await axios.get(url, {
+            headers: {
+              Accept: "application/json",
+            },
+          });
 
-        if (!response.data || !response.data.finalDecision) {
-          // Navigate back
-          navigate(`/decision/${guid}`);
-          return;
+          if (!response.data || !response.data.finalDecision) {
+            // Navigate back
+            navigate(`/decision/${guid}`);
+            return;
+          }
+
+          if (response.status === 200) {
+            const data = response.data;
+            setDecisions(data);
+
+            //* SET BACKGROUND
+            //* custom event to pass data between 2 separate components
+            const event = new CustomEvent("colorSchemeEvent", {
+              detail: data.colorScheme,
+            });
+            window.dispatchEvent(event);
+
+            setIsLoading(false);
+          } else {
+            console.log(
+              `HTTP Error: ${response.status} ${response.statusText}`
+            );
+            setIsLoading(false);
+          }
+        } catch (error) {
+          console.log(`Error: ${error.message}`);
+          setIsLoading(false);
         }
-
-        setIsLoading(false);
-
-        const event = new CustomEvent("colorSchemeEvent", {
-          detail: response.data.colorScheme,
-        });
-        window.dispatchEvent(event);
-
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching decisions:", error);
-        setIsLoading(false);
-        navigate(`/decision/${guid}/404`);
-        return { decisions: {} };
       }
+      makeGetRequest(`${import.meta.env.VITE_PROD_WEB_URL}/decision/${guid}`);
     };
 
     const updateDecisions = async () => {
       try {
         setIsLoading(true);
-        const decisionsData = await fetchDecisionsFromServer();
-        setDecisions(decisionsData);
+        await fetchDecisionsFromServer();
       } finally {
         setIsLoading(false);
       }
@@ -103,7 +113,9 @@ const DecisionMade = () => {
                 data={selectedBlob}
                 type="image/svg+xml"
               />
-              <span className="centered-text"><span>{decisions.finalDecision}</span></span>
+              <span className="centered-text">
+                <span>{decisions.finalDecision}</span>
+              </span>
             </div>
           </div>
         )}
