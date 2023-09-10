@@ -20,7 +20,6 @@ const DecisionNew = () => {
   const [firstDecision, setFirstDecision] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     navigate(`/decision/${guid}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,27 +34,44 @@ const DecisionNew = () => {
       decision: firstDecision,
     };
 
-    try {
-      let createDecision = await axios.post(
-        `${import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL}/decision`,
-        payload
-      );
-      setGUID(createDecision.data.guid);
-    } catch (e) {
-      console.log("Error submitting", e.response.data);
-      setLoading(false);
-    } finally {
-      setLoading(false);
+    async function makePostRequest(url) {
+      try {
+        const response = await axios.post(url, payload, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+
+        if (response.status === 200) {
+          const data = response.data;
+          console.log(data);
+          setGUID(data.guid);
+        } else {
+          console.log(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     }
+    makePostRequest(`${import.meta.env.VITE_PROD_WEB_URL}/decision`);
   };
+
   return (
     <>
       <NavBar />
       <div className="newDecisionContainer">
         <h1>Creating a group</h1>
-        <h3 style={{color: 'white'}}>Think of a title for the group along with the first idea to get things started</h3>
+        <h3 style={{ color: "white" }}>
+          Think of a title for the group along with the first idea to get things
+          started
+        </h3>
         <p>
-          Adding a title helps your group understand what type of ideas to include in the list
+          Adding a title helps your group understand what type of ideas to
+          include in the list
         </p>
         <form className="newDecisionInputContainer" onSubmit={handleSubmit}>
           <input

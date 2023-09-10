@@ -29,6 +29,18 @@ const Decision = () => {
 
   const currentURL = window.location.href;
 
+  useEffect(() => {
+    const updateDecisions = async () => {
+      try {
+        await fetchDecisionsFromServer();
+      } catch (e) {
+        console.error("Problem fetching decisions", e);
+      }
+    };
+
+    updateDecisions();
+  }, []);
+
   //* focus input when decision changes
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
@@ -37,48 +49,41 @@ const Decision = () => {
   const fetchDecisionsFromServer = async () => {
     const guid = window.location.pathname.split("/")[2];
 
-    try {
-      setIs404(false);
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL}/decision/${guid}`
-      );
-
-      if (response.data && response.data.finalDecision !== null) {
-        // navigate(`/decision/${guid}/choice`);
-        window.location.href = `/decision/${guid}/choice`;
-        return;
-      }
-      return response.data;
-    } catch (error) {
-      setIs404(true);
-      console.error("Error fetching decisions:", error);
-    }
-  };
-
-  useEffect(() => {
-    const updateDecisions = async () => {
+    async function makeGetRequest(url) {
       try {
-        setIsLoading(true);
-        const decisionsData = await fetchDecisionsFromServer();
-        setDecisions(decisionsData);
-
-        // NOTE FOR GITHUB
-        //* custom event to pass data between 2 separate components
-        const event = new CustomEvent("colorSchemeEvent", {
-          detail: decisionsData.colorScheme,
+        setIs404(false);
+        const response = await axios.get(url, {
+          headers: {
+            Accept: "application/json",
+          },
         });
-        window.dispatchEvent(event);
-      } catch (e) {
-        console.error("Problem fetching decisions", e);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    updateDecisions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+        if (response.data && response.data.finalDecision !== null) {
+          // navigate(`/decision/${guid}/choice`);
+          window.location.href = `/decision/${guid}/choice`;
+          return;
+        }
+
+        if (response.status === 200) {
+          const data = response.data;
+          setDecisions(data);
+          setIsLoading(false);
+
+          //* SET BACKGROUND
+          //* custom event to pass data between 2 separate components
+          const event = new CustomEvent("colorSchemeEvent", {
+            detail: data.colorScheme,
+          });
+          window.dispatchEvent(event);
+        } else {
+          console.log(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      }
+    }
+    makeGetRequest(`${import.meta.env.VITE_PROD_WEB_URL}/decision/${guid}`);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,40 +93,59 @@ const Decision = () => {
     let payload = {
       idea: idea,
     };
+    async function makePostRequest(url) {
+      try {
+        const response = await axios.post(url, payload, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL}/decision/${guid}`,
-        payload
-      );
-      let autoUpdateDecisions = await fetchDecisionsFromServer();
-      setDecisions(autoUpdateDecisions);
-    } catch (error) {
-      console.error("Error posting idea:", error);
-    } finally {
-      setIdea("");
-      setIsSubmissionLoading(false);
+        if (response.status === 200) {
+          const data = response.data;
+          console.log(data);
+          await fetchDecisionsFromServer();
+        } else {
+          console.log(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+      } finally {
+        setIdea("");
+        setIsSubmissionLoading(false);
+      }
     }
+    makePostRequest(`${import.meta.env.VITE_PROD_WEB_URL}/decision/${guid}`);
   };
 
   const handleMakeDecision = async () => {
     const guid = window.location.pathname.split("/")[2];
     setMakeDecisionLoading(true);
 
-    try {
-      await axios.get(
-        `${
-          import.meta.env.VITE_LOCALTEST_HOSTED_WEB_URL
-        }/decision/${guid}/choice`
-      );
-      // navigate(`/decision/${guid}/choice`);
-      window.location.href = `/decision/${guid}/choice`;
-    } catch (e) {
-      console.error("Error sending makeDecision request", e);
-      setMakeDecisionLoading(false);
-    } finally {
-      setMakeDecisionLoading(false);
+    async function makeGetRequest(url) {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.status === 200) {
+          window.location.href = `/decision/${guid}/choice`;
+        } else {
+          console.log(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.log(`Error: ${error.message}`);
+        setMakeDecisionLoading(false);
+      } finally {
+        setMakeDecisionLoading(false);
+      }
     }
+    makeGetRequest(
+      `${import.meta.env.VITE_PROD_WEB_URL}/decision/${guid}/choice`
+    );
   };
 
   const handleCopyClick = () => {
@@ -191,7 +215,8 @@ const Decision = () => {
               )}
               <div className="qrCodeContainer">
                 <span onClick={handleCopyClick}>
-                  Click or tap this text to copy the link, and share it with your group
+                  Click or tap this text to copy the link, and share it with
+                  your group
                   <textarea
                     name=""
                     id=""
