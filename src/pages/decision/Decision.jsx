@@ -1,6 +1,6 @@
 //? REACT
 import { useEffect, useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //? AXIOS
 import axios from "axios";
@@ -18,7 +18,7 @@ import NotFound from "../../components/404/NotFoundComponent";
 import "./Decision.scss";
 
 const Decision = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const inputRef = useRef(null);
   const [decisions, setDecisions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -132,7 +132,8 @@ const Decision = () => {
         });
 
         if (response.status === 200) {
-          window.location.href = `/decision/${guid}/choice`;
+          // window.location.href = `/decision/${guid}/choice`;
+          navigate(`/decision/${guid}/choice`);
         } else {
           console.log(`HTTP Error: ${response.status} ${response.statusText}`);
         }
